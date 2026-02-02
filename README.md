@@ -36,13 +36,13 @@ Business Problems and Solutions
 ## Question 1: Count the number of movies and TV Shows.
 
  
-'''sql
+```sql
  Select 
   type,
   Count (*) as "Number of Movies and TV shows"
 From Netflix
 Group by 1
-'''
+```
 
 ## Question 2: Find the most common rating for movies and Tv shows.
  
