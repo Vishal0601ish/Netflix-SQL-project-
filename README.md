@@ -18,6 +18,7 @@ The data for this project is sourced from the Kaggle dataset:
 ## Schema
 DROP TABLE IF EXISTS netflix;
 CREATE TABLE netflix
+```sql;
 (
     show_id      VARCHAR(5),
     type         VARCHAR(10),
@@ -32,6 +33,7 @@ CREATE TABLE netflix
     listed_in    VARCHAR(250),
     description  VARCHAR(550)
 );
+```
 Business Problems and Solutions
 ## Question 1: Count the number of movies and TV Shows.
 
