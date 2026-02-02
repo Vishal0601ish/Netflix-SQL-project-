@@ -95,11 +95,6 @@ order by 2 DESC
 limit 5 
 ```
 
-select 
-  unnest(String_to_Array(country, ','))as New_country
-from Netflix
-
-
 
 ## Question 5: Identify the longest-duration movie.
 
@@ -142,7 +137,7 @@ where
 
 ## Question 8: List all TV shows with more than 5 seasons.
 
-'''sql
+```sql
 Select 
    Type,
    Duration 
@@ -152,7 +147,7 @@ Where
    Type = 'TV Show'
    AND 
    CAST(Split_Part(duration, ' ', 1) as  INT)> 5
-'''
+```
 ## Question 9: Count the number of content items in each genre.
 
 ```sql
