@@ -46,7 +46,7 @@ Group by 1
 
 ## Question 2: Find the most common rating for movies and Tv shows.
  
-'''sql
+```sql
  
 SELECT *
 FROM (
@@ -63,12 +63,12 @@ FROM (
 ) t
 WHERE ranking = 1;
 
-'''
+```
 
 
 ## Question 3: List all movies released in a specific year. 
 
-'''sql 
+```sql 
 
 Select
     type
@@ -79,12 +79,12 @@ Where
     type = 'Movie'
 	And 
 	release_year = 2020
-'''
+```
 
 
 ## Question 4: Find the top 5 countries with the most content on Netflix.
 
-'''sql
+```sql
 
 Select 
    unnest(String_to_Array(country, ','))as New_country,
@@ -93,7 +93,7 @@ From Netflix
 Group by 1
 order by 2 DESC 
 limit 5 
-'''
+```
 
 select 
   unnest(String_to_Array(country, ','))as New_country
@@ -103,7 +103,7 @@ from Netflix
 
 ## Question 5: Identify the longest-duration movie.
 
-'''sql
+```sql
 SELECT 
 show_id,
 duration
@@ -114,11 +114,11 @@ WHERE
 	Duration IS NOT NULL
 ORDER BY CAST(SPLIT_PART(duration, ' ', 1) AS INT) DESC
 LIMIT 1;
-'''
+```
 
 ## Question 6: Find content added in the last 5 years?
 
-'''sql
+```sql
 Select 
   tittle,
   date_added
@@ -128,17 +128,17 @@ where
  date_added IS NOT NULL
  And 
  To_date (date_added, 'Month DD, YYYY')>= Current_Date - Interval '5Years';
-'''
+```
 
 ## Question 7: Find all the movies/TV shows directed by Rajiv Chilaka.
 
-'''sql
+```sql
 Select 
     *
 From Netflix
 where 
    director Ilike '%Rajiv Chilaka%'
-'''
+```
 
 ## Question 8: List all TV shows with more than 5 seasons.
 
@@ -155,7 +155,7 @@ Where
 '''
 ## Question 9: Count the number of content items in each genre.
 
-'''sql
+```sql
 Select 
     TRIM(listed_on) AS genre,
     COUNT(*) AS total_content
@@ -163,59 +163,29 @@ Select
  Unnest (String_to_Array(listed_in, ',')) As listed_on
  group by Genre
   Order by total_content DESC;
-'''
+```
 
-## Question 10:Find each year and the average number of content releases in India on Netflix. Return the top 5 years with the highest average contact release
+## Question 10: Find each year and the average number of content releases in India on Netflix. Return the top 5 years with the highest average contact release
 
-
-Select 
-    Count(show_id) as Number_of_content
-From Netflix
- Where 
-   date_added Ilike '%2021%'
-   And
-   country Ilike '%India%'
-
-
-select 
- *  
-From Netflix;
-
+```sql
 
 WITH yearly_releases AS (
     SELECT 
         EXTRACT(YEAR FROM TO_DATE(date_added, 'Month DD, YYYY')) AS year,
-        COUNT(show_id) AS yearly_count
-    FROM netflix
-    WHERE 
-        country ILIKE '%India%'
-        AND date_added IS NOT NULL
-    GROUP BY year
-)
-SELECT 
-    AVG(yearly_count) AS avg_content_per_year
-FROM yearly_releases;
-
-'''sql
-
-WITH monthly_releases AS (
-    SELECT
-        EXTRACT(YEAR FROM TO_DATE(date_added, 'Month DD, YYYY')) AS year,
-        EXTRACT(MONTH FROM TO_DATE(date_added, 'Month DD, YYYY')) AS month,
-        COUNT(*) AS monthly_count
+        COUNT(show_id) AS avg_content_released
     FROM netflix
     WHERE country ILIKE '%India%'
       AND date_added IS NOT NULL
-    GROUP BY 1, 2
+    GROUP BY year
 )
 SELECT
     year,
-    ROUND(AVG(monthly_count), 2) AS avg_yearly_releases
-FROM monthly_releases
-GROUP BY year
-ORDER BY avg_yearly_releases DESC
+    avg_content_released
+FROM yearly_releases
+ORDER BY avg_content_released DESC
 LIMIT 5;
-'''
+```
+
 
 ## Question 11: List all movies that are documentaries.
 
@@ -233,18 +203,17 @@ Where
 
 ## Question 12: Find all content with no director.
 
-'''sql
-
+```sql
 Select * 
 
     From netflix
 
 Where director is null
-'''
+```
 
 ## Question 13: Find how many movies actor Salman Khan appeared in over the last 12 years.
 
-'''sql
+```sql
 
 Select 
   * 
@@ -252,12 +221,12 @@ From Netflix
 where casts Ilike '%Salman Khan%'
 and type = 'Movie'
 and  release_year >= EXTRACT(YEAR FROM CURRENT_DATE) - 12;
-'''
+```
 
 
 ## Question 14: Find the top 10 actors who have appeared in the highest number of movies produced in India.
 
-'''sql
+```sql
 Select
      TRIM(actor) AS actor_name,
     COUNT(*) AS movie_count
@@ -269,10 +238,11 @@ where country ilike '%India%'
 group by 1
 order by 2 Desc
 limit 10
-'''
-## Question 15: categorises the content based on the presence of the words 'kill' and 'violence' in the description field. label content containing these words as 'Bad'and all other content as 'Good', count how many items fall under these categories.
+```
 
-'''sql
+## Question 15: categorises the content based on the presence of the words 'kill' and 'violence' in the description field. label content containing these words as 'Bad'and all other content as 'Good', and count how many items fall under these categories.
+
+```sql
 With new_table
 As
 (
@@ -290,7 +260,7 @@ from new_table
 group by 1
 where discription ilike '%kill%' 
 or discription ilike '%violence%'
-'''
+```
 
 Findings and Conclusion
 Content Distribution: The dataset contains a diverse range of movies and TV shows with varying ratings and genres.
