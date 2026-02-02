@@ -184,7 +184,7 @@ LIMIT 5;
 
 ## Question 11: List all movies that are documentaries.
 
-'''sql
+```sql
 
 Select 
    show_id,
@@ -194,7 +194,7 @@ Where
    type = 'Movie'
    And 
    listed_in Ilike '%Documentaries%'
-'''
+```
 
 ## Question 12: Find all content with no director.
 
